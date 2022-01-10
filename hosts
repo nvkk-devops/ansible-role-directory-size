@@ -1,0 +1,29 @@
+[all:children]
+linux_targets
+windows_targets
+
+[linux_targets]
+ec2-52-214-250-111.eu-west-1.compute.amazonaws.com
+
+[windows_targets]
+ec2-52-214-250-111.eu-west-1.compute.amazonaws.com
+
+[linux_targets:vars]
+ansible_become_exe='sudo su -'
+#ANSIBLE_BECOME_EXE=’sudo su -‘
+#ansible_ssh_extra_args='-o StrictHostKeyChecking=no -C -o ControlMaster=auto -o ControlPersist=60s'
+
+[windows_targets:vars]
+domain_username=Administrator
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+ansible_winrm_scheme=https
+ansible_winrm_port=5986
+ansible_winrm_user="{{ domain_username }}"
+v_web_pkg=http
+v_firewall_pkg=firewalld
+
+#[privilege_escalation]
+#become_exe='sudo su -'
+
+

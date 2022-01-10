@@ -1,0 +1,27 @@
+---
+- name: "windows: Directories Larger than 1GB"
+  ansible.windows.win_find:
+    paths:
+    - C:\SampleFiles
+    size: 1g
+    file_type: directory
+    recurse: yes
+
+- name: "windows: Files Smaller than 100MB"
+  ansible.windows.win_find:
+    paths:
+    - C:\SampleFiles
+    file_type: file
+    size: -100m
+    recurse: yes
+
+- name: "windows: Get-Item stats"
+  ansible.windows.win_shell: |
+    Get-ChildItem C:\SampleFiles -recurse | where-object {$_.length -lt 200000} | Sort-Object length | ft fullname, length -auto
+
+- name: "windows: Run powershell script"
+  ansible.windows.win_shell: C:\SampleFiles\ConfigureRemotingForAnsible.ps1 > C:\SampleFiles\Logs.log
+
+- name: "windows: Show contents of Logs"
+  ansible.windows.win_shell: |
+    type C:\SampleFiles\Logs.log

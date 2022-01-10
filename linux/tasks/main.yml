@@ -1,0 +1,30 @@
+---
+# - name: "Ensure ~/asuser exists"
+#   template:
+#     src: 'asuser.j2'
+#     dest: '~/asuser'
+#     mode: 'u=rwx,g=rx,o=rx'  
+
+- name: "linux: Directories Larger than 1GB"
+  become: true
+  become_method: su
+  become_user: "jbossadmin"
+  find:
+    paths: 
+    - "/apps/jboss"
+    size: "1g"
+    file_type: directory
+    recurse: yes
+
+- name: "linux: Files Larger than 100MB"
+  become: true
+  become_method: su
+  become_user: "jbossadmin"
+  find:
+    paths: 
+    - "/apps/jboss"
+    size: "100m"
+    file_type: file
+    recurse: yes
+
+

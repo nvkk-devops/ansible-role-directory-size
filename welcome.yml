@@ -1,0 +1,5 @@
+- name: Welcome to Ansible
+  hosts: localhost
+  tasks:
+    - name: echo message
+      debug: msg="Working fine..."

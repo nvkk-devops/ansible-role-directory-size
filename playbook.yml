@@ -1,0 +1,17 @@
+---
+- name: "Windows Hosts"
+  hosts: windows_targets
+  vars_prompt:
+    - name: ansible_password
+      prompt: "What is your windows password?"
+  roles:
+    - windows
+  tags:
+    - windows
+- name: "Linux Hosts"
+  hosts: linux_targets
+  roles:
+    - linux  
+  tags:
+    - linux    
+  
